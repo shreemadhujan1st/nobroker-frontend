@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.logo h2 {
+  color: #009587;
+  font-size: 28px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.login-btn {
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #009587;
+  color: #009587;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-btn {
+  padding: 10px 20px;
+  background: #009587;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
