@@ -3,16 +3,28 @@ import "./PropertyList.css";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import api from "../../services/api";
 
-function PropertyList({ search }) {
+function PropertyList({
+  search,
+  propertyType,
+  bedrooms,
+}) {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        let url = "properties/";
+        let url = "properties/?";
 
-        if (search.trim() !== "") {
-          url += `?search=${search}`;
+        if (search) {
+          url += `search=${search}&`;
+        }
+
+        if (propertyType) {
+          url += `property_type=${propertyType}&`;
+        }
+
+        if (bedrooms) {
+          url += `bedrooms=${bedrooms}&`;
         }
 
         const response = await api.get(url);
@@ -28,7 +40,7 @@ function PropertyList({ search }) {
     };
 
     fetchProperties();
-  }, [search]);
+  }, [search, propertyType, bedrooms]);
 
   return (
     <div className="property-list">

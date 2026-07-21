@@ -8,6 +8,8 @@ import PropertyList from "../components/PropertyList/PropertyList";
 
 function Home() {
   const [search, setSearch] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
 
   return (
     <>
@@ -19,10 +21,17 @@ function Home() {
         setSearch={setSearch}
       />
 
-      <Filters />
+      <Filters
+        propertyType={propertyType}
+        setPropertyType={setPropertyType}
+        bedrooms={bedrooms}
+        setBedrooms={setBedrooms}
+      />
 
       <PropertyList
         search={search}
+        propertyType={propertyType}
+        bedrooms={bedrooms}
       />
     </>
   );

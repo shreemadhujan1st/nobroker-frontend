@@ -1,34 +1,38 @@
 import "./Filters.css";
 
-function Filters() {
+function Filters({
+  propertyType,
+  setPropertyType,
+  bedrooms,
+  setBedrooms,
+}) {
   return (
     <div className="filters">
 
-      <select>
+      <select disabled>
         <option>Buy</option>
-        <option>Rent</option>
       </select>
 
-      <select>
-        <option>Property Type</option>
-        <option>Apartment</option>
-        <option>Villa</option>
-        <option>Independent House</option>
+      <select
+        value={propertyType}
+        onChange={(e) => setPropertyType(e.target.value)}
+      >
+        <option value="">Property Type</option>
+        <option value="Apartment">Apartment</option>
+        <option value="Villa">Villa</option>
+        <option value="House">House</option>
+        <option value="Plot">Plot</option>
       </select>
 
-      <select>
-        <option>BHK</option>
-        <option>1 BHK</option>
-        <option>2 BHK</option>
-        <option>3 BHK</option>
-        <option>4 BHK</option>
-      </select>
-
-      <select>
-        <option>Budget</option>
-        <option>₹20 Lakhs</option>
-        <option>₹50 Lakhs</option>
-        <option>₹1 Crore</option>
+      <select
+        value={bedrooms}
+        onChange={(e) => setBedrooms(e.target.value)}
+      >
+        <option value="">Bedrooms</option>
+        <option value="1">1 Bedroom</option>
+        <option value="2">2 Bedrooms</option>
+        <option value="3">3 Bedrooms</option>
+        <option value="4">4 Bedrooms</option>
       </select>
 
     </div>
