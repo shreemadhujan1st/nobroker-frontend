@@ -1,7 +1,27 @@
 import { Link } from "react-router-dom";
 import "./PropertyCard.css";
+import api from "../../services/api";
 
 function PropertyCard({ property }) {
+  const addToFavorites = async () => {
+    try {
+      const response = await api.post("properties/favorites/", {
+        property: property.id,
+      });
+
+      console.log(response.data);
+      alert("❤️ Added to Favorites!");
+    } catch (error) {
+      console.log(error.response);
+
+      if (error.response) {
+        alert(JSON.stringify(error.response.data));
+      } else {
+        alert(error.message);
+      }
+    }
+  };
+
   return (
     <div className="property-card">
       <img
@@ -38,7 +58,13 @@ function PropertyCard({ property }) {
             </button>
           </Link>
 
-          <span className="heart">❤️</span>
+          <span
+            className="heart"
+            onClick={addToFavorites}
+            style={{ cursor: "pointer" }}
+          >
+            ❤️
+          </span>
         </div>
       </div>
     </div>

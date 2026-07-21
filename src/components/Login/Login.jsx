@@ -13,7 +13,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post("/token/", {
+      const response = await api.post("users/token/", {
         username,
         password,
       });
@@ -25,7 +25,7 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      console.log(error.response?.data);
+      console.error(error.response?.data);
       alert("Invalid Username or Password");
     }
   };
