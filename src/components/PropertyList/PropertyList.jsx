@@ -3,15 +3,20 @@ import "./PropertyList.css";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import api from "../../services/api";
 
-function PropertyList() {
+function PropertyList({ search }) {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await api.get("properties/");
+        let url = "properties/";
 
-        // Handles both paginated and non-paginated responses
+        if (search.trim() !== "") {
+          url += `?search=${search}`;
+        }
+
+        const response = await api.get(url);
+
         if (response.data.results) {
           setProperties(response.data.results);
         } else {
@@ -23,16 +28,20 @@ function PropertyList() {
     };
 
     fetchProperties();
-  }, []);
+  }, [search]);
 
   return (
     <div className="property-list">
-      {properties.map((property) => (
-        <PropertyCard
-          key={property.id}
-          property={property}
-        />
-      ))}
+      {properties.length > 0 ? (
+        properties.map((property) => (
+          <PropertyCard
+            key={property.id}
+            property={property}
+          />
+        ))
+      ) : (
+        <h2>No properties found.</h2>
+      )}
     </div>
   );
 }
