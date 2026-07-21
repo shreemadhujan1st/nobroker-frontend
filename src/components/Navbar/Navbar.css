@@ -25,9 +25,14 @@
   gap: 30px;
 }
 
-.nav-links li {
-  cursor: pointer;
+.nav-links li a {
+  text-decoration: none;
+  color: black;
   font-weight: 500;
+}
+
+.nav-links li a:hover {
+  color: #009587;
 }
 
 .auth-buttons {
@@ -42,6 +47,12 @@
   color: #009587;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #009587;
+  color: white;
 }
 
 .signup-btn {
@@ -51,4 +62,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-btn:hover {
+  background: #00796b;
 }

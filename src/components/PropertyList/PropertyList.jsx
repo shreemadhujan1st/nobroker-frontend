@@ -27,7 +27,11 @@ function PropertyList({
           url += `bedrooms=${bedrooms}&`;
         }
 
+        console.log("Request URL:", url);
+
         const response = await api.get(url);
+
+        console.log("API Response:", response.data);
 
         if (response.data.results) {
           setProperties(response.data.results);
@@ -36,6 +40,10 @@ function PropertyList({
         }
       } catch (error) {
         console.error("Error fetching properties:", error);
+
+        if (error.response) {
+          console.log("Response Error:", error.response.data);
+        }
       }
     };
 
