@@ -1,25 +1,22 @@
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import api from "../../services/api";
 
 function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/token/",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await api.post("/token/", {
+        username,
+        password,
+      });
 
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
@@ -28,8 +25,8 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      alert("Invalid email or password!");
-      console.log(error);
+      console.log(error.response?.data);
+      alert("Invalid Username or Password");
     }
   };
 
@@ -44,10 +41,10 @@ function Login() {
 
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
 
@@ -66,7 +63,9 @@ function Login() {
 
         <p className="register-text">
           Don't have an account?{" "}
-          <Link to="/register">Register</Link>
+          <Link to="/register">
+            Register
+          </Link>
         </p>
       </div>
     </div>
