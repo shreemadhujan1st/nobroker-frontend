@@ -3,52 +3,62 @@ import "./PropertyList.css";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import api from "../../services/api";
 
-function PropertyList({
-  search,
-  propertyType,
-  bedrooms,
-}) {
+function PropertyList({ search, propertyType, bedrooms }) {
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        let url = "properties/?";
-
-        if (search) {
-          url += `search=${search}&`;
-        }
-
-        if (propertyType) {
-          url += `property_type=${propertyType}&`;
-        }
-
-        if (bedrooms) {
-          url += `bedrooms=${bedrooms}&`;
-        }
-
-        console.log("Request URL:", url);
-
-        const response = await api.get(url);
-
-        console.log("API Response:", response.data);
-
-        if (response.data.results) {
-          setProperties(response.data.results);
-        } else {
-          setProperties(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-
-        if (error.response) {
-          console.log("Response Error:", error.response.data);
-        }
-      }
-    };
-
     fetchProperties();
   }, [search, propertyType, bedrooms]);
+
+  const fetchProperties = async () => {
+    try {
+      setLoading(true);
+
+      let url = "properties/?";
+
+      if (search) {
+        url += `search=${search}&`;
+      }
+
+      if (propertyType) {
+        url += `property_type=${propertyType}&`;
+      }
+
+      if (bedrooms) {
+        url += `bedrooms=${bedrooms}&`;
+      }
+
+      console.log("Request URL:", url);
+
+      const response = await api.get(url);
+
+      console.log("API Response:", response.data);
+
+      if (Array.isArray(response.data)) {
+        setProperties(response.data);
+      } else if (response.data.results) {
+        setProperties(response.data.results);
+      } else {
+        setProperties([]);
+      }
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+
+      if (error.response) {
+        console.log("Status:", error.response.status);
+        console.log("Response:", error.response.data);
+      }
+
+      setProperties([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <h2>Loading properties...</h2>;
+  }
 
   return (
     <div className="property-list">

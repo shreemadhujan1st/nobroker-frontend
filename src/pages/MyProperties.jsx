@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
-import api from "../services/api";
 import MyPropertyCard from "../components/MyPropertyCard/MyPropertyCard";
+import api from "../services/api";
 
 function MyProperties() {
   const [properties, setProperties] = useState([]);
@@ -16,7 +16,7 @@ function MyProperties() {
       const response = await api.get("properties/my-properties/");
       setProperties(response.data);
     } catch (error) {
-      console.error(error.response || error);
+      console.error(error);
       alert("Failed to load your properties.");
     } finally {
       setLoading(false);
@@ -28,21 +28,31 @@ function MyProperties() {
       <Navbar />
 
       <div className="container">
-        <h1 className="page-title">My Properties</h1>
+        <h1
+          style={{
+            textAlign: "center",
+            marginTop: "30px",
+            color: "#009688",
+          }}
+        >
+          My Properties
+        </h1>
 
         {loading ? (
-          <h2>Loading...</h2>
+          <h2 style={{ textAlign: "center" }}>
+            Loading...
+          </h2>
         ) : properties.length === 0 ? (
-          <h2>No Properties Found</h2>
+          <h2 style={{ textAlign: "center" }}>
+            No Properties Found
+          </h2>
         ) : (
-          <div className="my-properties-grid">
-            {properties.map((property) => (
-              <MyPropertyCard
-                key={property.id}
-                property={property}
-              />
-            ))}
-          </div>
+          properties.map((property) => (
+            <MyPropertyCard
+              key={property.id}
+              property={property}
+            />
+          ))
         )}
       </div>
     </>

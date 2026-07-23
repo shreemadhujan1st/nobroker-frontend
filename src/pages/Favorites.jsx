@@ -13,10 +13,30 @@ function Favorites() {
   const fetchFavorites = async () => {
     try {
       const response = await api.get("properties/favorites/");
-
       setFavorites(response.data);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    }
+  };
+
+  const removeFavorite = async (propertyId) => {
+    try {
+      await api.delete(`properties/favorites/${propertyId}/`);
+
+      setFavorites(
+        favorites.filter(
+          (fav) => fav.property.id !== propertyId
+        )
+      );
+
+      alert("Removed from Favorites");
+    } catch (error) {
+      console.log(error.response);
+
+      alert(
+        error.response?.data?.detail ||
+        "Unable to remove favorite."
+      );
     }
   };
 
@@ -34,13 +54,27 @@ function Favorites() {
         <h1>Your Favorites ❤️</h1>
 
         {favorites.length === 0 ? (
-          <h3>No favorite properties yet.</h3>
+          <h3>No favorite properties.</h3>
         ) : (
           favorites.map((favorite) => (
-            <PropertyCard
+            <div
               key={favorite.id}
-              property={favorite.property}
-            />
+              style={{
+                marginBottom: "30px",
+              }}
+            >
+              <PropertyCard
+                property={favorite.property}
+              />
+
+              <button
+                onClick={() =>
+                  removeFavorite(favorite.property.id)
+                }
+              >
+                ❌ Remove Favorite
+              </button>
+            </div>
           ))
         )}
       </div>
