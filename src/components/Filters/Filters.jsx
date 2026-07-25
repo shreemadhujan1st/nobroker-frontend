@@ -1,6 +1,8 @@
 import "./Filters.css";
 
 function Filters({
+  listingType,
+  setListingType,
   propertyType,
   setPropertyType,
   bedrooms,
@@ -9,8 +11,12 @@ function Filters({
   return (
     <div className="filters">
 
-      <select disabled>
-        <option>Buy</option>
+      <select
+        value={listingType}
+        onChange={(e) => setListingType(e.target.value)}
+      >
+        <option value="Buy">Buy</option>
+        <option value="Rent">Rent</option>
       </select>
 
       <select

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import api from "../services/api";
+import "./Profile.css";
 
 function Profile() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProfile();
@@ -14,52 +16,57 @@ function Profile() {
       const response = await api.get("users/profile/");
       setUser(response.data);
     } catch (error) {
-      console.error(error);
-      alert("Please login first.");
+      console.log(error.response || error);
+      alert("Unable to load profile.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <h2 style={{ textAlign: "center", marginTop: "80px" }}>
+          Loading...
+        </h2>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
 
-      <div
-        style={{
-          maxWidth: "700px",
-          margin: "40px auto",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "10px",
-          boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <h1
-          style={{
-            color: "#009587",
-            marginBottom: "25px",
-          }}
-        >
-          My Profile
-        </h1>
+      <div className="profile-container">
+        <div className="profile-card">
 
-        {user ? (
-          <>
-            <h3>Username</h3>
-            <p>{user.username}</p>
+          <div className="profile-icon">
+            👤
+          </div>
 
-            <br />
+          <h1>My Profile</h1>
 
-            <h3>Email</h3>
-            <p>{user.email || "Not Added"}</p>
+          <div className="profile-info">
 
-            <br />
+            <div className="profile-row">
+              <span>Username</span>
+              <strong>{user?.username}</strong>
+            </div>
 
-            <h3>Phone</h3>
-            <p>{user.phone || "Not Added"}</p>
-          </>
-        ) : (
-          <h3>Loading...</h3>
-        )}
+            <div className="profile-row">
+              <span>Email</span>
+              <strong>{user?.email}</strong>
+            </div>
+
+            <div className="profile-row">
+              <span>Phone</span>
+              <strong>{user?.phone || "Not Added"}</strong>
+            </div>
+
+          </div>
+
+        </div>
       </div>
     </>
   );

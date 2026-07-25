@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
 import SearchBar from "../components/SearchBar/SearchBar";
@@ -6,13 +7,16 @@ import Filters from "../components/Filters/Filters";
 import PropertyList from "../components/PropertyList/PropertyList";
 
 function Home() {
+
   const [search, setSearch] = useState("");
+  const [listingType, setListingType] = useState("Buy");
   const [propertyType, setPropertyType] = useState("");
   const [bedrooms, setBedrooms] = useState("");
 
   return (
     <>
       <Navbar />
+
       <Hero />
 
       <SearchBar
@@ -21,6 +25,8 @@ function Home() {
       />
 
       <Filters
+        listingType={listingType}
+        setListingType={setListingType}
         propertyType={propertyType}
         setPropertyType={setPropertyType}
         bedrooms={bedrooms}
@@ -29,11 +35,13 @@ function Home() {
 
       <PropertyList
         search={search}
+        listingType={listingType}
         propertyType={propertyType}
         bedrooms={bedrooms}
       />
     </>
   );
+
 }
 
 export default Home;

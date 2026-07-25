@@ -3,22 +3,34 @@ import "./PropertyList.css";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import api from "../../services/api";
 
-function PropertyList({ search, propertyType, bedrooms }) {
+function PropertyList({
+  search,
+  listingType,
+  propertyType,
+  bedrooms,
+}) {
+
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProperties();
-  }, [search, propertyType, bedrooms]);
+  }, [search, listingType, propertyType, bedrooms]);
 
   const fetchProperties = async () => {
+
     try {
+
       setLoading(true);
 
       let url = "properties/?";
 
       if (search) {
         url += `search=${search}&`;
+      }
+
+      if (listingType) {
+        url += `listing_type=${listingType}&`;
       }
 
       if (propertyType) {
@@ -33,7 +45,7 @@ function PropertyList({ search, propertyType, bedrooms }) {
 
       const response = await api.get(url);
 
-      console.log("API Response:", response.data);
+      console.log(response.data);
 
       if (Array.isArray(response.data)) {
         setProperties(response.data);
@@ -42,38 +54,48 @@ function PropertyList({ search, propertyType, bedrooms }) {
       } else {
         setProperties([]);
       }
-    } catch (error) {
-      console.error("Error fetching properties:", error);
 
-      if (error.response) {
-        console.log("Status:", error.response.status);
-        console.log("Response:", error.response.data);
-      }
+    } catch (error) {
+
+      console.log(error.response);
 
       setProperties([]);
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   if (loading) {
-    return <h2>Loading properties...</h2>;
+    return <h2>Loading Properties...</h2>;
   }
 
   return (
     <div className="property-list">
+
       {properties.length > 0 ? (
+
         properties.map((property) => (
+
           <PropertyCard
             key={property.id}
             property={property}
           />
+
         ))
+
       ) : (
-        <h2>No properties found.</h2>
+
+        <h2>No Properties Found.</h2>
+
       )}
+
     </div>
   );
+
 }
 
 export default PropertyList;

@@ -15,23 +15,24 @@ function Favorites() {
       const response = await api.get("properties/favorites/");
       setFavorites(response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert("Unable to load favorites.");
     }
   };
 
-  const removeFavorite = async (propertyId) => {
+  const removeFavorite = async (favoriteId) => {
     try {
-      await api.delete(`properties/favorites/${propertyId}/`);
+      await api.delete(`properties/favorites/${favoriteId}/`);
 
-      setFavorites(
-        favorites.filter(
-          (fav) => fav.property.id !== propertyId
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter(
+          (favorite) => favorite.id !== favoriteId
         )
       );
 
-      alert("Removed from Favorites");
+      alert("Removed from Favorites ❤️");
     } catch (error) {
-      console.log(error.response);
+      console.error(error);
 
       alert(
         error.response?.data?.detail ||
@@ -68,8 +69,9 @@ function Favorites() {
               />
 
               <button
+                className="favorite-btn"
                 onClick={() =>
-                  removeFavorite(favorite.property.id)
+                  removeFavorite(favorite.id)
                 }
               >
                 ❌ Remove Favorite

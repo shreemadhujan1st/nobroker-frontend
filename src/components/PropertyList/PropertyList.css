@@ -1,17 +1,16 @@
-.property-list {
-  width: 90%;
-  max-width: 1400px;
-  margin: 40px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
-  align-items: start;
+.property-list{
+    width:90%;
+    max-width:1400px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+    gap:30px;
+    justify-items:center;
 }
 
-.property-list h2 {
-  grid-column: 1 / -1;
-  text-align: center;
-  color: #666;
-  margin-top: 50px;
-  font-size: 28px;
+.property-list h2{
+    grid-column:1/-1;
+    text-align:center;
+    color:#555;
+    margin-top:40px;
 }

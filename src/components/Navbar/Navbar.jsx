@@ -2,87 +2,85 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+
   const navigate = useNavigate();
 
-  const isLoggedIn = localStorage.getItem("access");
+  const token = localStorage.getItem("access");
 
-  const handleLogout = () => {
+  const logout = () => {
+
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
 
-    alert("Logged out successfully!");
+    alert("Logged out successfully.");
 
     navigate("/login");
+
   };
 
   return (
+
     <nav className="navbar">
+
       <div className="logo">
-        <h2>HomeHub</h2>
+
+        <Link to="/">
+          HomeHub
+        </Link>
+
       </div>
 
-      <ul className="nav-links">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
+      <div className="nav-links">
 
-        <li>
-          <Link to="/">Buy</Link>
-        </li>
+        <Link to="/">
+          Home
+        </Link>
 
-        <li>
-          <Link to="/">Rent</Link>
-        </li>
-
-        <li>
-          <Link to="/">Commercial</Link>
-        </li>
-
-        <li>
-          <Link to="/">About</Link>
-        </li>
-      </ul>
-
-      <div className="auth-buttons">
-        {isLoggedIn ? (
+        {token && (
           <>
+            <Link to="/add-property">
+              Add Property
+            </Link>
+
+            <Link to="/my-properties">
+              My Properties
+            </Link>
+
             <Link to="/favorites">
-              <button className="login-btn">
-                Favorites
-              </button>
+              Favorites
             </Link>
 
             <Link to="/profile">
-              <button className="login-btn">
-                Profile
-              </button>
+              Profile
             </Link>
 
             <button
-              className="signup-btn"
-              onClick={handleLogout}
+              className="logout-btn"
+              onClick={logout}
             >
               Logout
             </button>
           </>
-        ) : (
+        )}
+
+        {!token && (
           <>
             <Link to="/login">
-              <button className="login-btn">
-                Login
-              </button>
+              Login
             </Link>
 
             <Link to="/register">
-              <button className="signup-btn">
-                Sign Up
-              </button>
+              Register
             </Link>
           </>
         )}
+
       </div>
+
     </nav>
+
   );
+
 }
 
 export default Navbar;

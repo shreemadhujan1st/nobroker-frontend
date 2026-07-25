@@ -4,8 +4,8 @@ import MyPropertyCard from "../components/MyPropertyCard/MyPropertyCard";
 import api from "../services/api";
 
 function MyProperties() {
+
   const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchMyProperties();
@@ -13,13 +13,50 @@ function MyProperties() {
 
   const fetchMyProperties = async () => {
     try {
-      const response = await api.get("properties/my-properties/");
+
+      const response = await api.get(
+        "properties/my-properties/"
+      );
+
       setProperties(response.data);
+
     } catch (error) {
-      console.error(error);
-      alert("Failed to load your properties.");
-    } finally {
-      setLoading(false);
+
+      console.log(error.response);
+
+      alert("Unable to load your properties.");
+
+    }
+  };
+
+  const deleteProperty = async (id) => {
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this property?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+      await api.delete(
+        `properties/${id}/`
+      );
+
+      setProperties((prev) =>
+        prev.filter(
+          (property) => property.id !== id
+        )
+      );
+
+      alert("Property deleted successfully.");
+
+    } catch (error) {
+
+      console.log(error.response);
+
+      alert("Unable to delete property.");
+
     }
   };
 
@@ -27,33 +64,41 @@ function MyProperties() {
     <>
       <Navbar />
 
-      <div className="container">
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "40px auto",
+          padding: "20px",
+        }}
+      >
+
         <h1
           style={{
-            textAlign: "center",
-            marginTop: "30px",
             color: "#009688",
+            marginBottom: "30px",
           }}
         >
           My Properties
         </h1>
 
-        {loading ? (
-          <h2 style={{ textAlign: "center" }}>
-            Loading...
-          </h2>
-        ) : properties.length === 0 ? (
-          <h2 style={{ textAlign: "center" }}>
-            No Properties Found
-          </h2>
+        {properties.length === 0 ? (
+
+          <h3>No properties found.</h3>
+
         ) : (
+
           properties.map((property) => (
+
             <MyPropertyCard
               key={property.id}
               property={property}
+              onDelete={deleteProperty}
             />
+
           ))
+
         )}
+
       </div>
     </>
   );

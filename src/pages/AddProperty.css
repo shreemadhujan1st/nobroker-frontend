@@ -1,0 +1,71 @@
+.add-property-container {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.add-property-container h1 {
+    text-align: center;
+    color: #009688;
+    margin-bottom: 30px;
+}
+
+.add-property-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.add-property-container input,
+.add-property-container textarea,
+.add-property-container select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.add-property-container textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.add-property-container input:focus,
+.add-property-container textarea:focus,
+.add-property-container select:focus {
+    border-color: #009688;
+    box-shadow: 0 0 5px rgba(0,150,136,.3);
+}
+
+.add-property-container input[type="file"] {
+    padding: 10px;
+    background: #fafafa;
+}
+
+.add-property-container button {
+    padding: 14px;
+    background: #009688;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.add-property-container button:hover {
+    background: #00796b;
+}
+
+.add-property-container button:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
