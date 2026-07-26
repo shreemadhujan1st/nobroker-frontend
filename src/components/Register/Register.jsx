@@ -4,6 +4,7 @@ import api from "../../services/api";
 import "./Register.css";
 
 function Register() {
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -16,13 +17,16 @@ function Register() {
   });
 
   const handleChange = (e) => {
+
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
@@ -31,14 +35,20 @@ function Register() {
     }
 
     try {
-      await api.post("users/register/", {
-        username: form.username,
-        email: form.email,
-        phone: form.phone,
-        password: form.password,
-      });
 
-      alert("Registration Successful!");
+      const response = await api.post(
+        "users/register/",
+        {
+          username: form.username,
+          email: form.email,
+          phone: form.phone,
+          password: form.password,
+        }
+      );
+
+      console.log(response.data);
+
+      alert("Registration Successful ✅");
 
       setForm({
         username: "",
@@ -49,13 +59,35 @@ function Register() {
       });
 
     } catch (error) {
-      console.log(error.response?.data);
-      alert("Registration Failed");
+
+      console.log("Registration Error:", error.response);
+
+      if (error.response && error.response.data) {
+
+        let message = "";
+
+        Object.keys(error.response.data).forEach((key) => {
+
+          message += `${key}: ${error.response.data[key]}\n`;
+
+        });
+
+        alert(message);
+
+      } else {
+
+        alert("Server Error");
+
+      }
+
     }
+
   };
 
   return (
+
     <div className="register-page">
+
       <div className="register-card">
 
         <h1>Create Account</h1>
@@ -100,6 +132,7 @@ function Register() {
           <label>Password</label>
 
           <div className="password-box">
+
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -115,11 +148,13 @@ function Register() {
             >
               {showPassword ? "🙈" : "👁"}
             </span>
+
           </div>
 
           <label>Confirm Password</label>
 
           <div className="password-box">
+
             <input
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
@@ -135,21 +170,35 @@ function Register() {
             >
               {showConfirmPassword ? "🙈" : "👁"}
             </span>
+
           </div>
 
           <button type="submit">
+
             Create Account
+
           </button>
 
         </form>
 
         <div className="login-link">
-          Already have an account? <Link to="/login">Login</Link>
+
+          Already have an account?
+
+          <Link to="/login">
+
+            Login
+
+          </Link>
+
         </div>
 
       </div>
+
     </div>
+
   );
+
 }
 
 export default Register;

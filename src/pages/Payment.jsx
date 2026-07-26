@@ -14,26 +14,38 @@ function Payment() {
   };
 
   return (
+
     <div className="payment-page">
 
       <div className="payment-card">
 
         <h1>🏆 HomeHub Premium</h1>
 
-        <p>Choose your payment method</p>
+        <p>
+          Complete your payment to unlock Premium Features
+        </p>
 
         <div className="price">
+
           ₹299 / Month
+
         </div>
 
         <div className="qr-box">
 
           <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=HomeHubPremium299"
-            alt="QR Code"
+            src="/payment-qr.jpg"
+            alt="UPI Payment QR"
+            className="payment-qr"
           />
 
-          <p>Scan using any UPI App</p>
+          <h3>Scan Using Any UPI App</h3>
+
+          <p>
+
+            PhonePe • Google Pay • Paytm
+
+          </p>
 
         </div>
 
@@ -69,10 +81,18 @@ function Payment() {
           I Have Paid
         </button>
 
+        <small>
+
+          Demo Payment Flow
+
+        </small>
+
       </div>
 
     </div>
+
   );
+
 }
 
 export default Payment;
