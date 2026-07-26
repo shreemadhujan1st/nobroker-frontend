@@ -32,8 +32,6 @@ function PropertyCard({ property }) {
 
     } catch (error) {
 
-      console.log(error.response);
-
       alert(
         error.response?.data?.message ||
         "Unable to add to favorites."
@@ -45,18 +43,14 @@ function PropertyCard({ property }) {
 
   return (
 
-    <div
-      className="property-card"
-      onClick={() => navigate(`/property/${property.id}`)}
-      style={{ cursor: "pointer" }}
-    >
+    <div className="property-card">
 
       <img
         src={property.image || defaultImage}
         alt={property.title}
         className="property-image"
-        onError={(e) => {
-          e.target.src = defaultImage;
+        onError={(e)=>{
+          e.target.src=defaultImage;
         }}
       />
 
@@ -80,12 +74,29 @@ function PropertyCard({ property }) {
 
         <p>{property.area} sqft</p>
 
-        <button
-          className="favorite-btn"
-          onClick={handleFavorite}
+        <div
+          style={{
+            display:"flex",
+            gap:"10px",
+            marginTop:"15px"
+          }}
         >
-          ❤️ Add to Favorites
-        </button>
+
+          <button
+            className="favorite-btn"
+            onClick={handleFavorite}
+          >
+            ❤️ Favorite
+          </button>
+
+          <button
+            className="favorite-btn"
+            onClick={() => navigate(`/property/${property.id}`)}
+          >
+            View Details
+          </button>
+
+        </div>
 
       </div>
 

@@ -5,6 +5,10 @@ import Hero from "../components/Hero/Hero";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Filters from "../components/Filters/Filters";
 import PropertyList from "../components/PropertyList/PropertyList";
+import WhyChoose from "../components/WhyChoose/WhyChoose";
+import Statistics from "../components/Statistics/Statistics";
+import Testimonials from "../components/Testimonials/Testimonials";
+import Footer from "../components/Footer/Footer";
 
 function Home() {
 
@@ -39,9 +43,16 @@ function Home() {
         propertyType={propertyType}
         bedrooms={bedrooms}
       />
+
+      <WhyChoose />
+
+      <Statistics />
+
+      <Testimonials />
+
+      <Footer />
     </>
   );
-
 }
 
 export default Home;

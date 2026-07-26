@@ -1,5 +1,4 @@
 import "./Footer.css";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -7,48 +6,49 @@ function Footer() {
 
       <div className="footer-container">
 
-        <div className="footer-section">
+        <div className="footer-column">
+
           <h2>HomeHub</h2>
 
           <p>
-            Find your dream property with HomeHub.
-            Buy, sell and manage properties easily.
+            HomeHub helps buyers, renters and owners connect
+            directly without paying brokerage.
           </p>
+
         </div>
 
-        <div className="footer-section">
-          <h2>Quick Links</h2>
+        <div className="footer-column">
 
-          <Link to="/">Home</Link>
+          <h3>Quick Links</h3>
 
-          <Link to="/add-property">
-            Add Property
-          </Link>
+          <ul>
+            <li>Home</li>
+            <li>Buy Property</li>
+            <li>Rent Property</li>
+            <li>Favorites</li>
+          </ul>
 
-          <Link to="/my-properties">
-            My Properties
-          </Link>
-
-          <Link to="/favorites">
-            Favorites
-          </Link>
         </div>
 
-        <div className="footer-section">
-          <h2>Contact</h2>
+        <div className="footer-column">
 
-          <p>📧 madhushreel2003@gmail.com</p>
+          <h3>Contact Us</h3>
 
-          <p>📞 +91 7204608289</p>
+          <p>📧 support@homehub.com</p>
 
-          <p>📍 Mysuru,Karnataka, India</p>
+          <p>📞 +91 98765 43210</p>
+
+          <p>📍 Bangalore, India</p>
+
         </div>
 
       </div>
 
-      <div className="footer-bottom">
+      <hr />
+
+      <p className="copyright">
         © 2026 HomeHub. All Rights Reserved.
-      </div>
+      </p>
 
     </footer>
   );
