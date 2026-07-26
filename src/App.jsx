@@ -9,10 +9,14 @@ import MyProperties from "./pages/MyProperties";
 import PropertyDetails from "./pages/PropertyDetails";
 import AddProperty from "./pages/AddProperty";
 import EditProperty from "./pages/EditProperty";
+import Premium from "./pages/Premium";
+import Payment from "./pages/Payment";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function App() {
   return (
     <BrowserRouter>
+
       <Routes>
 
         <Route
@@ -60,7 +64,23 @@ function App() {
           element={<PropertyDetails />}
         />
 
+        <Route
+          path="/premium"
+          element={<Premium />}
+        />
+
+        <Route
+          path="/payment"
+          element={<Payment />}
+        />
+
+        <Route
+          path="/payment-success"
+          element={<PaymentSuccess />}
+        />
+
       </Routes>
+
     </BrowserRouter>
   );
 }

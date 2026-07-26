@@ -1,0 +1,85 @@
+.payment-page{
+    min-height:100vh;
+    background:#f5f7fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.payment-card{
+    width:480px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.payment-card h1{
+    margin-bottom:10px;
+}
+
+.payment-card p{
+    color:#666;
+}
+
+.price{
+    font-size:34px;
+    font-weight:bold;
+    color:#009688;
+    margin:25px 0;
+}
+
+.qr-box{
+    margin:20px 0;
+}
+
+.qr-box img{
+    width:220px;
+    height:220px;
+    border-radius:10px;
+}
+
+.payment-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-top:25px;
+}
+
+.payment-buttons button{
+    padding:15px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+}
+
+.phonepe{
+    background:#5f259f;
+}
+
+.gpay{
+    background:#34a853;
+}
+
+.paytm{
+    background:#00baf2;
+}
+
+.paid-btn{
+    margin-top:25px;
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    background:#ff9800;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.paid-btn:hover{
+    background:#fb8c00;
+}

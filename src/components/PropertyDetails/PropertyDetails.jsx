@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./PropertyDetails.css";
 
 function PropertyDetails() {
+
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [property, setProperty] = useState(null);
 
@@ -22,8 +24,24 @@ function PropertyDetails() {
     return <h2>Loading...</h2>;
   }
 
+  const isPremium =
+    localStorage.getItem("is_premium") === "true";
+
+  const handleContactOwner = () => {
+
+    if (!isPremium) {
+      navigate("/premium");
+      return;
+    }
+
+    alert(
+      `Owner Phone : ${property.owner_phone}\n\nOwner Email : ${property.owner_email}`
+    );
+  };
+
   return (
     <div className="details-page">
+
       <div className="details-card">
 
         <h1>{property.title}</h1>
@@ -54,19 +72,31 @@ function PropertyDetails() {
 
         <hr />
 
-        <h2>Owner Details</h2>
+        <h2>Owner Information</h2>
 
-        <p><b>Name:</b> {property.owner}</p>
+        <p><b>Name :</b> {property.owner}</p>
 
-        <p><b>Email:</b> {property.owner_email}</p>
+        {isPremium ? (
+          <>
+            <p><b>Email :</b> {property.owner_email}</p>
 
-        <p><b>Phone:</b> {property.owner_phone}</p>
+            <p><b>Phone :</b> {property.owner_phone}</p>
+          </>
+        ) : (
+          <p style={{ color: "red" }}>
+            🔒 Upgrade to Premium to view owner contact details.
+          </p>
+        )}
 
-        <button className="contact-btn">
+        <button
+          className="contact-btn"
+          onClick={handleContactOwner}
+        >
           Contact Owner
         </button>
 
       </div>
+
     </div>
   );
 }
