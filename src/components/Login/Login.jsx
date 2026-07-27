@@ -12,29 +12,34 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
 
       const response = await api.post("users/token/", {
-        username,
+        username: username.trim(),
         password,
       });
 
       localStorage.setItem("access", response.data.access);
       localStorage.setItem("refresh", response.data.refresh);
 
-      alert("Login Successful!");
+      alert("Login Successful ✅");
 
       navigate("/");
 
     } catch (error) {
 
-      console.error(error.response?.data);
+      console.log(error.response?.data);
 
-      alert("Invalid Username or Password");
+      alert(
+        error.response?.data?.detail ||
+        "Invalid Username or Password"
+      );
 
     }
+
   };
 
   return (
@@ -87,13 +92,10 @@ function Login() {
         </form>
 
         <p className="register-text">
-
           Don't have an account?{" "}
-
           <Link to="/register">
             Register
           </Link>
-
         </p>
 
       </div>
